@@ -95,7 +95,7 @@ class Wp_Common_Tools_Public {
 	    if(!empty($wpct_mime_types))
 	    {
 		 	$mimes['svg'] = 'image/svg+xml';
-		 	$mimes['svg'] = 'image/svg';
+		 	//$mimes['svg'] = 'image/svg';
 		}
 		else
 		{

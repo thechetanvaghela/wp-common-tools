@@ -1,0 +1,102 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+/* Container */
+.wpct-tab-container{
+    margin: 5% 10%;
+    /*background-color: #c1e3d9;*/
+    background-color: #c1e3d954;
+    padding: 3%;
+    border-radius: 4px;
+}
+
+/* TABs */
+.wpct-tab-menu{}
+.wpct-tab-menu ul{
+    margin: 0;
+    padding: 0;
+}
+.wpct-tab-menu ul li{
+    list-style-type: none;
+    display: inline-block;
+}
+.wpct-tab-menu ul li a{
+    text-decoration: none;
+    /*color: rgba(0,0,0,0.4);
+    background-color: #b4cbc4;*/
+    color: rgb(0 0 0 / 76%);
+    background-color: #95c5b6;
+    padding: 7px 25px;
+    border-radius: 4px;
+}
+.wpct-tab-menu ul li a.wpct-active-a{
+    /*background-color: #588d7d;*/
+    background-color: #366e5d;
+    color: #ffffff;
+    font-weight: 700;
+}
+.wpct-tab{
+    display: none;
+}
+.wpct-tab h2{
+    color: rgba(0,0,0,.7);
+}
+.wpct-tab p{
+    color: rgba(0,0,0,0.6);
+    text-align: justify;
+}
+.wpct-tab-active{
+    display: block;
+}
+
+/* Loader */
+#wpct-setting-container.loader
+{
+    filter: blur(5px);
+    pointer-events: none;
+}
+.wpct-tab-container-heading
+{
+    width: 100%;
+    margin: auto;
+    padding: 0px 0px 30px 0px;
+    font-size: 1.5em;
+}
+
+.wpct-tab p{
+    position: relative;
+    font-weight: 700;
+}
+.wpct-tab p:after {
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+    height: 1px;
+    background: #000;
+    content: "";
+    display: block;
+    left: 50%;
+    transform: translatex(-50%);
+}
+.wpct-tab h2
+{
+    margin-top: 30px;
+}
+
+a.wpct-remove-btn {
+    padding: 3px;
+    background: red;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 10px;
+    font-size: 11px;
+}
+
+.wpct-tab-container img{
+    background-color: #fff;
+    padding: 20px;
+    margin: 5px;
+}

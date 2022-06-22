@@ -29,3 +29,20 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+$wpct_remove_on_uninstall = get_option('wpct_remove_on_uninstall');
+if(!empty($wpct_remove_on_uninstall) && $wpct_remove_on_uninstall == 'yes')
+{
+    # delete options on uninstall
+    delete_option('wpct-loader-enable');
+    delete_option('wpct-loader-image');
+    delete_option('wpct-progress-bar-enable');
+    delete_option('wpct-scroll-progress-bar');
+    delete_option('wpct-scroll-progress-color');
+    delete_option('wpct-back-to-top-enable');
+    delete_option('wpct-backtotop-color');
+    delete_option('wpct-adminbar-disable');
+    delete_option('wpct-login-image');
+    delete_option('wpct-mime-types-enable');
+    delete_option('wpct-uninstall-enable');
+}

@@ -7,6 +7,7 @@ jQuery(document).ready(function(){
   }, 1000);
   jQuery("#wp-common-tools-form-settings").click(function() {
     jQuery('#wpct-setting-container').addClass('loader'); 
+    jQuery("<div class='wpct-waiting-msg'>Please wait<span>.</span><span>.</span><span>.</span></div>").insertAfter("#wpct-setting-container");
   });
 
   /* Page loader options */

@@ -30,7 +30,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-$wpct_remove_on_uninstall = get_option('wpct_remove_on_uninstall');
+$wpct_remove_on_uninstall = get_option('wpct-uninstall-enable');
 if(!empty($wpct_remove_on_uninstall) && $wpct_remove_on_uninstall == 'yes')
 {
     # delete options on uninstall

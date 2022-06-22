@@ -292,6 +292,10 @@ class Wp_Common_Tools_Admin {
 	            	{
 	            		update_option('wpct-mime-types-enable', '');
 	            	}
+
+	            	# uninstall
+	            	$uninstall = isset($_POST['wpct-uninstall-enable']) ? sanitize_text_field($_POST['wpct-uninstall-enable']) : 'no';
+	            	update_option('wpct-uninstall-enable', sanitize_text_field($uninstall));
 		            	
 	            	$redirect_url = add_query_arg('wpct-msg',$status,$pluginurl);
 	                wp_safe_redirect( $redirect_url);
@@ -308,7 +312,7 @@ class Wp_Common_Tools_Admin {
 	 */
 	public function wp_common_tools_settings_page_callback() {
 		# declare variables
-		$loader_enabled = $loader_image_wrap = $loader_img_src = $loader_select_image_wrap = $progress_bar_enable = $backtop_enable = $backtotop_option_wrap = $adminbar_disable = $login_image_wrap = $login_img_src = $login_select_image_wrap = "";
+		$loader_enabled = $loader_image_wrap = $loader_img_src = $loader_select_image_wrap = $progress_bar_enable = $backtop_enable = $backtotop_option_wrap = $adminbar_disable = $login_image_wrap = $login_img_src = $login_select_image_wrap = $uninstall_enable = "";
 
 		# get saved data
 
@@ -344,6 +348,10 @@ class Wp_Common_Tools_Admin {
 	    # mime
 	    $wpct_mime_types = get_option('wpct-mime-types-enable');
 	    $wpct_mime_types = !empty($wpct_mime_types) ? $wpct_mime_types : array();
+
+	    # uninstall
+	    $wpct_uninstall_enable = get_option('wpct-uninstall-enable');
+	    $wpct_uninstall_enable = !empty($wpct_uninstall_enable) ? $wpct_uninstall_enable : '';
 		?>
 		<div class="wrap">
 			<div id="wpct-setting-container">
@@ -364,6 +372,7 @@ class Wp_Common_Tools_Admin {
 								         <li><a href="javascript:void(0);" id="tab3" class="wpct-tab-a" data-id="tab3"><?php _e('Admin Options','wp-common-tools'); ?></a></li>
 								         <li><a href="javascript:void(0);" id="tab4" class="wpct-tab-a" data-id="tab4"><?php _e('Mime Types','wp-common-tools'); ?></a></li>
 								         <li><a href="javascript:void(0);" id="tab5" class="wpct-tab-a" data-id="tab5"><?php _e('Page Loader','wp-common-tools'); ?></a></li>
+								         <li><a href="javascript:void(0);" id="tab6" class="wpct-tab-a" data-id="tab6"><?php _e('Uninstall','wp-common-tools'); ?></a></li>
 								      </ul>
 								   </div><!--end of tab-menu-->
 
@@ -556,6 +565,22 @@ class Wp_Common_Tools_Admin {
 								        </div>
 								        <p><?php _e('Display a loader until the page is fully loaded.','wp-common-tools'); ?></p>
 								   </div><!--end of tab five--> 
+
+								   <div class="wpct-tab " data-id="tab6">
+								      	<h2><?php _e('Remove Plugin data on Uninstall','wp-common-tools'); ?></h2>
+								         <div class="wpct-uninstall-wrap">
+								          	<?php 
+								          	if($wpct_uninstall_enable == 'yes')
+								         	{
+								         		$uninstall_enable = 'checked';
+								         	}
+								         	?>
+								          	<div class="wpct-uninstall-enable">
+								          		<input type="checkbox" name="wpct-uninstall-enable" id="wpct-uninstall-enable" value="yes" <?php echo $uninstall_enable; ?>><label for="wpct-uninstall-enable"><?php _e('Remove Data?','wp-common-tools'); ?></label>
+								          	</div>
+							      		</div>
+								        <p><?php _e('Plugin data will be removed on Uninstall','wp-common-tools'); ?></p>     
+								   </div><!--end of tab six--> 
 
 								   	<div class="wpct-save-button-wrap">
 									    <?php wp_nonce_field( 'wpct_action_nonce', 'wpct_nonce' ); ?>

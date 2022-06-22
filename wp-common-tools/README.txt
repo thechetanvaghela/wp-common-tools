@@ -35,7 +35,10 @@ scroll progress, back to top, admin bar, wp-admin logo, SVG support,Page Loader
 
 == Frequently Asked Questions ==
 
-= What is use of Plugin? =
+= Installation Instruction =
+1. Upload the plugin files to the `/wp-content/plugins/wp-common-tools` directory, or install the plugin through the WordPress plugins screen directly.
+2. Activate the "Common Tools for Site" plugin through the 'Plugins' screen in WordPress
+3. Click on "Common Tools" on the dashboard.
 
 
 == Screenshots ==

@@ -14,7 +14,6 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Common Tools for Site
- * Plugin URI:        https://github.com/thechetanvaghela
  * Description:       The plugin provides common functionality to the site.
  * Version:           1.0.0
  * Author:            Chetan Vaghela

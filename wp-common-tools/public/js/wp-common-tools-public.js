@@ -33,10 +33,12 @@ document.onreadystatechange = function() {
               document.querySelector(
                 "#wpct-preload").style.visibility = "visible";
           } else {
+            setTimeout(function(){
               document.querySelector(
                 "#wpct-preload").style.display = "none";
               document.querySelector(
                 "body").style.visibility = "visible";
+            }, 100);
           }
       }
 };

@@ -61,18 +61,6 @@ class Wp_Common_Tools_Admin {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Wp_Common_Tools_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Wp_Common_Tools_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-common-tools-admin.css', array(), $this->version, 'all' );
 
 	}
@@ -83,18 +71,6 @@ class Wp_Common_Tools_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Wp_Common_Tools_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Wp_Common_Tools_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-common-tools-admin.js', array( 'jquery' ), $this->version, false );
 
@@ -146,6 +122,16 @@ class Wp_Common_Tools_Admin {
 				$message = 'Sorry, error in uploading media.';
 				$notice_class = 'notice-error';
 			}
+			else if($_REQUEST['wpct-msg'] == 'media-permission')
+			{
+				$message = 'Sorry, You do not have permission to upload media.';
+				$notice_class = 'notice-error';
+			}
+			else if($_REQUEST['wpct-msg'] == 'mime-error')
+			{
+				$message = 'Sorry, You can not upload this extension media.';
+				$notice_class = 'notice-error';
+			}
 			else
 			{
 				$message = 'Something went wrong!';
@@ -184,6 +170,8 @@ class Wp_Common_Tools_Admin {
 				} 
 				else 
 				{	
+					$mimeType = ['png','gif','jpg','jpeg'];
+
 					$status = 'success';
 					# loader
 					$enable_loader = isset($_POST['wpct-loader-enable']) ? sanitize_text_field($_POST['wpct-loader-enable']) : 'no';
@@ -196,19 +184,36 @@ class Wp_Common_Tools_Admin {
 			        		{
 			        			if(empty($_FILES['wpct-loader-image']['error']))
 			        			{
-					        		require_once( ABSPATH . 'wp-admin/includes/image.php' );
-									require_once( ABSPATH . 'wp-admin/includes/file.php' );
-									require_once( ABSPATH . 'wp-admin/includes/media.php' );
-					              	$attachment_id = media_handle_upload('wpct-loader-image', 0);
-					              		
-								    if (is_wp_error($attachment_id)) 
-								    {
-								        $status = 'media-error';
-								    }
-								    else 
-								    {
-								        update_option('wpct-loader-image', $attachment_id);
-								    }
+			        				if(current_user_can('upload_files')) 
+			        				{
+			        					$filename = $_FILES['wpct-loader-image']['name'];
+						                $temp = explode(".", $filename);
+						                $extension = end($temp);
+						                if(in_array($extension,$mimeType) )
+						                {
+							        		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+											require_once( ABSPATH . 'wp-admin/includes/file.php' );
+											require_once( ABSPATH . 'wp-admin/includes/media.php' );
+							              	$attachment_id = media_handle_upload('wpct-loader-image', 0);
+							              		
+										    if (is_wp_error($attachment_id)) 
+										    {
+										        $status = 'media-error';
+										    }
+										    else 
+										    {
+										        update_option('wpct-loader-image', $attachment_id);
+										    }
+										}
+										else
+										{
+											$status = 'mime-error';
+										}
+									}
+									else
+									{
+										$status = 'media-permission';
+									}
 								}
 								else
 								{
@@ -253,19 +258,36 @@ class Wp_Common_Tools_Admin {
 		        	{	
 	        			if(empty($_FILES['wpct-login-image']['error']))
 	        			{
-			        		require_once( ABSPATH . 'wp-admin/includes/image.php' );
-							require_once( ABSPATH . 'wp-admin/includes/file.php' );
-							require_once( ABSPATH . 'wp-admin/includes/media.php' );
-			              	$logn_attachment_id = media_handle_upload('wpct-login-image', 0);
-			              		
-						    if (is_wp_error($logn_attachment_id)) 
-						    {
-						        $status = 'media-error';
-						    }
-						    else 
-						    {
-						        update_option('wpct-login-image', $logn_attachment_id);
-						    }
+	        				if(current_user_can('upload_files')) 
+			        		{
+			        			$filename = $_FILES['wpct-login-image']['name'];
+				                $temp = explode(".", $filename);
+				                $extension = end($temp);
+				                if(in_array($extension,$mimeType) )
+				                {
+					        		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+									require_once( ABSPATH . 'wp-admin/includes/file.php' );
+									require_once( ABSPATH . 'wp-admin/includes/media.php' );
+					              	$logn_attachment_id = media_handle_upload('wpct-login-image', 0);
+					              		
+								    if (is_wp_error($logn_attachment_id)) 
+								    {
+								        $status = 'media-error';
+								    }
+								    else 
+								    {
+								        update_option('wpct-login-image', $logn_attachment_id);
+								    }
+								}
+								else
+								{
+									$status = 'mime-error';
+								}
+							}
+							else
+							{
+								$status = 'media-permission';
+							}
 						}
 						else
 						{
@@ -474,8 +496,8 @@ class Wp_Common_Tools_Admin {
 								         		{	?>
 								         			<br/>
 								         			<div class="wpct-login-img-preview-wrap">
-								         				<img src="<?php echo $login_img_src; ?>" class="wpct-login-img-preview" width="100" height="100">
-								         				<input type="hidden" name="wpct-login-img-id" value="<?php echo $login_image_id; ?>">
+								         				<img src="<?php echo esc_url($login_img_src); ?>" class="wpct-login-img-preview" width="100" height="100">
+								         				<input type="hidden" name="wpct-login-img-id" value="<?php echo esc_attr($login_image_id); ?>">
 								         				<br/>
 								         				<a href="javascript:void(0)" class="wpct-remove-btn remove-login-img"><?php _e('Remove','wp-common-tools'); ?></a>
 								         			</div>
@@ -553,8 +575,8 @@ class Wp_Common_Tools_Admin {
 								         		{	?>
 								         			<br/>
 								         			<div class="wpct-loader-img-preview-wrap">
-								         				<img src="<?php echo $loader_img_src; ?>" class="wpct-loader-img-preview" width="100" height="100">
-								         				<input type="hidden" name="wpct-loader-img-id" value="<?php echo $loader_image_id; ?>">
+								         				<img src="<?php echo esc_url($loader_img_src); ?>" class="wpct-loader-img-preview" width="100" height="100">
+								         				<input type="hidden" name="wpct-loader-img-id" value="<?php echo esc_attr($loader_image_id); ?>">
 								         				<br/>
 								         				<a href="javascript:void(0)" class="wpct-remove-btn remove-loader-img"><?php _e('Remove','wp-common-tools'); ?></a>
 								         			</div>

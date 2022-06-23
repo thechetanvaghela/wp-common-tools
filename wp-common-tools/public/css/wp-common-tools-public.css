@@ -54,20 +54,25 @@
 /* Show Scroll progress in circle */
 #wpct-percentage-value {
     position: fixed;
-    top: 93%;
-    left: 3%;
-    transform: translateX(-50%);
+    top: auto;
+    bottom: 2%;
+    left: 1%;
     height: 50px;
     width: 50px;
     color: #FB3C3F;
     background-color: white;
     text-align: center;
-    line-height: 50px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(15%);
     border-radius: 50%;
     box-shadow: 1px 1px 8px 2px #fb3c3f, -1px -1px 8px 2px #fb3c3f;
     font-size: 1em;
     z-index: 999999;
 }
+
 /*#wpct-scroll-percent {
     position: fixed;
     top: 0;
@@ -105,58 +110,14 @@
     height: inherit;
 }
 
-@media only screen and (min-width:320px)  { 
+
+
+@media screen and (max-width:1199px)  { 
     #wpct-percentage-value
     {
-        top: 91%;
-        left: 10%;
-    }
-}
-@media only screen and (min-width:481px)  { 
-    #wpct-percentage-value
-    {
-        left: 5%;
-        top: 95%;
-    }
-
-}
-@media only screen and (min-width:641px)  { 
-
-    #wpct-percentage-value
-    {
-        top: 95%;
-        left: 4%;
-    }
-
-}
-
-@media only screen and (min-width:801px)  {
-     #wpct-percentage-value
-    {
-        top: 94%;
-        left: 4%;
-    }
-}
-
-@media only screen and (min-width:1025px)  {
-     #wpct-percentage-value
-    {
-        top: 94%;
-         left: 3%;
-    }
-}
-
-@media only screen and (min-width:1281px) { 
-    #wpct-percentage-value
-    {
-        top: 94%;
-        left: 3%;
-    }
-}
-@media only screen and (min-width:1920px) { 
-    #wpct-percentage-value
-    {
-        top: 94%;
-        left: 2%;
+       font-size: 0.6em;
+        line-height: 1;
+        height: 40px;
+        width: 40px;
     }
 }

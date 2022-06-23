@@ -50,7 +50,10 @@
     left: 50%;
     z-index: 9999999;
 }
-
+#wpct-preload img{
+    width:100px;
+    height: 100px;
+}
 /* Show Scroll progress in circle */
 #wpct-percentage-value {
     position: fixed;

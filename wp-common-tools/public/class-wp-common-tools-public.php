@@ -126,9 +126,9 @@ class Wp_Common_Tools_Public {
 			  	?> 
 			    <style type="text/css"> 
 			        body.login div#login h1 a {
-			            background-image: url(<?php echo $login_img; ?>);  
-			            width: <?php echo $img_width; ?>px !important;
-			            height: <?php echo $img_height; ?>px !important;
+			            background-image: url(<?php echo esc_url($login_img); ?>);  
+			            width: <?php echo esc_attr($img_width); ?>px !important;
+			            height: <?php echo esc_attr($img_height); ?>px !important;
 			            background-size:100% !important;
 			        } 
 			    </style>
@@ -161,7 +161,7 @@ class Wp_Common_Tools_Public {
 	    	$wpct_btt_color = !empty($wpct_btt_color) ? $wpct_btt_color : '#ff0000';
 	    	$btt_style_bg = 'background-color:'.$wpct_btt_color.';'; ?>
 			<!-- Back to TOP -->
-			<a id="wpct-backtotop" style="<?php echo $btt_style_bg; ?>"></a>
+			<a id="wpct-backtotop" style="<?php echo esc_attr($btt_style_bg); ?>"></a>
 			<?php 
 		}
 
@@ -182,7 +182,7 @@ class Wp_Common_Tools_Public {
 	     	} ?>
 			<!-- Loader -->
 			<div id="wpct-preload">
-				<img src="<?php echo $loader_img; ?>">
+				<img src="<?php echo esc_url($loader_img); ?>">
 			</div>
 			<?php 
 		} 
@@ -206,14 +206,14 @@ class Wp_Common_Tools_Public {
 				<div id="wpct-scroll-percent" data-scrollPercentage>
 					<div class="wpct-percentage">&nbsp;</div>
 				</div>
-		 		<div id="wpct-percentage-value" style="<?php echo $circle_style; ?>"></div>
+		 		<div id="wpct-percentage-value" style="<?php echo esc_attr($circle_style); ?>"></div>
 		 		<?php 
 		 	}
 		 	else if($wpct_scroll_progress_bar == 'top')
 		 	{	?>
 		 		<!-- page scroll progress in top -->
 		 		<div class="wpct-progress-container wpct-fixed-top">
-				  <span class="wpct-progress-bar" style="<?php echo $top_style_bg; ?>"></span>
+				  <span class="wpct-progress-bar" style="<?php echo esc_attr($top_style_bg); ?>"></span>
 				</div>
 				<?php
 			}

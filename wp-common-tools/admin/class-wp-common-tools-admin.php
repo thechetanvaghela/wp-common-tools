@@ -411,19 +411,19 @@ class Wp_Common_Tools_Admin {
 								         		$progress_option_wrap = 'display:none;';
 								         	}  ?>
 								          	<div class="wpct-scroll-progress-bar-enable">
-								          		<input type="checkbox" name="wpct-progress-bar-enable" id="wpct-progress-bar-enable" value="yes" <?php echo $progress_bar_enable; ?>>
+								          		<input type="checkbox" name="wpct-progress-bar-enable" id="wpct-progress-bar-enable" value="yes" <?php echo esc_attr($progress_bar_enable); ?>>
 								          		<label for="wpct-progress-bar-enable"><?php _e('Enable Scroll Progress Bar','wp-common-tools'); ?></label>
 								          	</div>
-								          	<div class="wpct-scroll-progress-bar-option-wrap" style="<?php echo $progress_option_wrap; ?>">
+								          	<div class="wpct-scroll-progress-bar-option-wrap" style="<?php echo esc_attr($progress_option_wrap); ?>">
 								          		<div class="wpct-scroll-progress-bar-options">
 									          		<?php 
 									          		$top_checked =  ($wpct_scroll_progress_bar == 'top') ? 'checked' : '';
 									          		$circle_checked =  ($wpct_scroll_progress_bar == 'circle') ? 'checked' : '';
 									          		 ?>
 									          		 <br/>
-									          		<input type="radio" name="wpct-scroll-progress-bar" value="top" id="spb-top" <?php echo $top_checked; ?>>
+									          		<input type="radio" name="wpct-scroll-progress-bar" value="top" id="spb-top" <?php echo esc_attr($top_checked); ?>>
 									          		<label for="spb-top"><?php _e('Top','wp-common-tools'); ?></label><br/>
-									          		<input type="radio" name="wpct-scroll-progress-bar" value="circle" id="spb-circle" <?php echo $circle_checked; ?>>
+									          		<input type="radio" name="wpct-scroll-progress-bar" value="circle" id="spb-circle" <?php echo esc_attr($circle_checked); ?>>
 									          		<label for="spb-circle"><?php _e('Circle','wp-common-tools'); ?></label>
 								          		</div>
 								          		<div class="wpct-scroll-progress-bar-color-wrap">
@@ -449,9 +449,9 @@ class Wp_Common_Tools_Admin {
 								         		$backtotop_option_wrap = 'display:none;';
 								         	}  ?>
 								          	<div class="wpct-back-to-top-enable">
-								          		<input type="checkbox" name="wpct-back-to-top-enable" id="wpct-back-to-top-enable" value="yes" <?php echo $backtop_enable; ?>><label for="wpct-back-to-top-enable"><?php _e('Enable Back to Top','wp-common-tools'); ?></label>
+								          		<input type="checkbox" name="wpct-back-to-top-enable" id="wpct-back-to-top-enable" value="yes" <?php echo esc_attr($backtop_enable); ?>><label for="wpct-back-to-top-enable"><?php _e('Enable Back to Top','wp-common-tools'); ?></label>
 								          	</div>
-							          		<div class="wpct-back-to-top-option-wrap" style="<?php echo $backtotop_option_wrap; ?>">
+							          		<div class="wpct-back-to-top-option-wrap" style="<?php echo esc_attr($backtotop_option_wrap); ?>">
 							          			<br/>
 							          			<input type="color" name="wpct-backtotop-color" id="btt-color" value="<?php echo esc_attr($wpct_btt_color); ?>">
 							          			<label for="btt-color"><?php _e('Select Color for button','wp-common-tools'); ?></label>
@@ -470,7 +470,7 @@ class Wp_Common_Tools_Admin {
 								         	}
 								         	?>
 								          	<div class="wpct-adminbar-enable">
-								          		<input type="checkbox" name="wpct-adminbar-disable" id="wpct-adminbar-disable" value="yes" <?php echo $adminbar_disable; ?>><label for="wpct-adminbar-disable"><?php _e('Hide Admin Bar','wp-common-tools'); ?></label>
+								          		<input type="checkbox" name="wpct-adminbar-disable" id="wpct-adminbar-disable" value="yes" <?php echo esc_attr($adminbar_disable); ?>><label for="wpct-adminbar-disable"><?php _e('Hide Admin Bar','wp-common-tools'); ?></label>
 								          	</div>
 								          	<p><?php _e('Hide admin bar from Frontend when user logged in.','wp-common-tools'); ?></p>
 
@@ -525,7 +525,7 @@ class Wp_Common_Tools_Admin {
 								          		{
 								          			$mime_checked = (in_array($mime_name , $wpct_mime_types) || in_array($mime_name , $total_mimes)) ? 'checked' : '';
 								          			?>
-								          			<input type="checkbox" name="wpct-mime-types-enable[]" id="wpct-mime-types-enable-<?php echo $c; ?>" value="<?php echo esc_attr($mime_name); ?>" <?php echo $mime_checked; ?>><label for="wpct-mime-types-enable-<?php echo $c; ?>"><?php echo esc_attr($mime_name); ?></label><br/>
+								          			<input type="checkbox" name="wpct-mime-types-enable[]" id="wpct-mime-types-enable-<?php echo esc_attr($c); ?>" value="<?php echo esc_attr($mime_name); ?>" <?php echo esc_attr($mime_checked); ?>><label for="wpct-mime-types-enable-<?php echo $c; ?>"><?php echo esc_attr($mime_name); ?></label><br/>
 								          			<?php
 								          			$c++; 
 								          		} ?>
@@ -563,11 +563,11 @@ class Wp_Common_Tools_Admin {
 									         		$loader_image_wrap = 'display:none;';
 									         	} 
 									         	?>
-							         			<input type="checkbox" name="wpct-loader-enable" id="wpct-loader-enable" value="yes" <?php echo $loader_enabled; ?>>
+							         			<input type="checkbox" name="wpct-loader-enable" id="wpct-loader-enable" value="yes" <?php echo esc_attr($loader_enabled); ?>>
 							         			<label for="wpct-loader-enable"><?php _e('Enable Loader','wp-common-tools'); ?></label>
 							         		</div>
-								         	<div class="wpct-loader-image-wrap" style="<?php echo $loader_image_wrap; ?>">
-									         	<div class="wpct-loader-img-select-wrap" style="<?php echo $loader_select_image_wrap; ?>">
+								         	<div class="wpct-loader-image-wrap" style="<?php echo esc_attr($loader_image_wrap); ?>">
+									         	<div class="wpct-loader-img-select-wrap" style="<?php echo esc_attr($loader_select_image_wrap); ?>">
 									         		<input type="file" name="wpct-loader-image" class="wpct-loader-image" accept="image/png, image/gif, image/jpeg">
 									         	</div>
 								         		<?php 
@@ -598,7 +598,7 @@ class Wp_Common_Tools_Admin {
 								         	}
 								         	?>
 								          	<div class="wpct-uninstall-enable">
-								          		<input type="checkbox" name="wpct-uninstall-enable" id="wpct-uninstall-enable" value="yes" <?php echo $uninstall_enable; ?>><label for="wpct-uninstall-enable"><?php _e('Remove Data?','wp-common-tools'); ?></label>
+								          		<input type="checkbox" name="wpct-uninstall-enable" id="wpct-uninstall-enable" value="yes" <?php echo esc_attr($uninstall_enable); ?>><label for="wpct-uninstall-enable"><?php _e('Remove Data?','wp-common-tools'); ?></label>
 								          	</div>
 							      		</div>
 								        <p><?php _e('Plugin data will be removed on Uninstall','wp-common-tools'); ?></p>     

@@ -69,4 +69,31 @@ jQuery(document).ready(function(){
       var ct = jQuery(this).attr('id');
       localStorage.setItem('wpct-current-tab', ct);
    });
+
+  jQuery('.wpct-our-plugins-btn').click(function(){  
+        jQuery('.wpct-our-plugins-wrap').html("<div class='wpct-pls-wait'>Please Wait..</div>");
+        jQuery.ajax({
+          type:'post',
+          dataType:'json',
+          url: ajaxurl,
+          data:{
+            'action': 'wpct_get_our_plugins',
+          },
+          beforeSend: function(){
+          },
+          success: function(response){
+               jQuery('#wpct-setting-container').removeClass('loader');
+               jQuery('.wpct-waiting-msg').remove();
+              if(response.success)
+              {
+                  jQuery('.wpct-our-plugins-wrap').html(response.html);
+              }
+              else
+              {
+                  jQuery('.wpct-our-plugins-wrap').html(response.html);
+              }
+          }
+        }); 
+  });
+
 });

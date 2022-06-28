@@ -56,6 +56,9 @@ scroll progress, back to top, admin bar, wp-admin logo, SVG support,Page Loader
 = 1.0.0 =
 * Initial Public Release.
 
+= 1.0.1 =
+* add our plugin section
+
 == Upgrade Notice ==
 = 1.0 =
 * Initial Public Release.

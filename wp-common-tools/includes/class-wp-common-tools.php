@@ -168,6 +168,7 @@ class Wp_Common_Tools {
 		# add removable query arg
 		$this->loader->add_filter( 'removable_query_args', $plugin_admin, 'wpct_add_removable_arg_callback', 10, 3  );
 
+		$this->loader->add_action( 'wp_ajax_wpct_get_our_plugins', $plugin_admin, 'wp_ajax_wpct_get_our_plugins_callback' );
 	}
 
 	/**

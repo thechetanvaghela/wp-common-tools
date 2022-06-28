@@ -395,6 +395,7 @@ class Wp_Common_Tools_Admin {
 								         <li><a href="javascript:void(0);" id="tab4" class="wpct-tab-a" data-id="tab4"><?php _e('Mime Types','wp-common-tools'); ?></a></li>
 								         <li><a href="javascript:void(0);" id="tab5" class="wpct-tab-a" data-id="tab5"><?php _e('Page Loader','wp-common-tools'); ?></a></li>
 								         <li><a href="javascript:void(0);" id="tab6" class="wpct-tab-a" data-id="tab6"><?php _e('Uninstall','wp-common-tools'); ?></a></li>
+								         <li><a href="javascript:void(0);" id="tab7" class="wpct-tab-a wpct-our-plugins-btn" data-id="tab7"><?php _e('Check other plugins','wp-common-tools'); ?></a></li>
 								      </ul>
 								   </div><!--end of tab-menu-->
 
@@ -604,6 +605,13 @@ class Wp_Common_Tools_Admin {
 								        <p><?php _e('Plugin data will be removed on Uninstall','wp-common-tools'); ?></p>     
 								   </div><!--end of tab six--> 
 
+								    <div class="wpct-tab wpct-our-plugins-section-wrap" data-id="tab7">
+								      	<h2><?php _e('Check other plugins','wp-common-tools'); ?></h2>
+								         <div class="wpct-our-plugins-wrap">
+								          	
+							      		</div> 
+								   </div><!--end of tab seven--> 
+
 								   	<div class="wpct-save-button-wrap">
 									    <?php wp_nonce_field( 'wpct_action_nonce', 'wpct_nonce' ); ?>
 					                    <?php  submit_button( 'Save Settings', 'primary', 'wp-common-tools-form-settings'  ); ?>
@@ -617,5 +625,131 @@ class Wp_Common_Tools_Admin {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * callback for ajax
+	 *
+	 * @since    1.0.0
+	 */
+	public function wp_ajax_wpct_get_our_plugins_callback() {
+
+		$transient = 'wpct-our-plugin-data';
+		$html_data = get_transient( $transient );
+		if(!empty($html_data))
+		{
+			$success = true;
+			$html = $html_data;
+		}
+		else
+		{
+			$api_url = 'https://api.wordpress.org/plugins/info/1.2/?action=query_plugins&request[author]=thechetanvaghela';
+		  	$api_response = wp_remote_get($api_url);
+		  	$api_http_code = wp_remote_retrieve_response_code( $api_response );
+		  	$html = '';
+		  	$success = false;
+		  	if(isset($api_http_code) && !empty($api_http_code))
+		  	{
+		  		if($api_http_code == 200)
+		  		{
+		  			$api_body = wp_remote_retrieve_body( $api_response );
+		  			if(!empty($api_body))
+		  			{
+		  				$get_data = json_decode($api_body,true);
+		  				if(!empty($get_data))
+		  				{
+		  					$info = isset($get_data['info']) ? $get_data['info'] :'';
+		  					$plugins = isset($get_data['plugins']) ? $get_data['plugins'] : array();
+		  					if(!empty($plugins))
+		  					{
+		  						$success = true;
+		  							
+		  						foreach ($plugins as $key => $plugin) 
+		  						{
+		  							$wp_plugins_path = 'https://wordpress.org/plugins/';
+		  							$name = isset($plugin['name']) ? $plugin['name'] : '';
+		  							$slug = isset($plugin['slug']) ? $plugin['slug'] : '';
+
+		  							if($slug == 'common-tools-for-site')
+		  							{
+		  								continue;
+		  							}
+		  							$plugin_path = $wp_plugins_path.$slug.'/';
+		  							$version = isset($plugin['version']) ? $plugin['version'] : '';
+		  							$author = isset($plugin['author']) ? $plugin['author'] : '';
+		  							$author_profile = isset($plugin['author_profile']) ? $plugin['author_profile'] : '';
+		  							$downloaded = isset($plugin['downloaded']) ? $plugin['downloaded'] : '';
+		  							$short_description = isset($plugin['short_description']) ? $plugin['short_description'] : '';
+		  							$download_link = isset($plugin['download_link']) ? $plugin['download_link'] : '';
+		  							$icons = isset($plugin['icons']) ? $plugin['icons'] : '';
+		  							$icons_url = !empty($plugin['icons']['1x']) ? $plugin['icons']['1x'] : '';
+
+		  							
+		  							$html .= '<article class="wpct-plugin-card  wpct-status-publish '.esc_attr($slug).'">';
+									$html .= '<div class="wpct-entry-wrap">';
+									$html .= '<div class="wpct-entry-thumbnail">';
+									$html .= '<a href="'.esc_url($plugin_path).'" target="_blank" rel="bookmark">';
+									$html .= '<img class="wpct-plugin-icon" src="'.esc_url($icons_url).'">';
+									$html .= '</a>';
+									$html .= '</div>';
+									$html .= '<div class="wpct-entry">';
+									$html .= '<header class="wpct-entry-header">';
+									$html .= '<h3 class="wpct-entry-title"><a href="'.esc_url($plugin_path).'" rel="bookmark" target="_blank">'.esc_attr($name).'</a></h3>';		
+									$html .= '</header>';
+									$html .= '<div class="wpct-entry-excerpt">';
+									$html .= '<p>'.esc_html($short_description).'</p>';
+									$html .= '</div>';
+									$html .= '</div>';
+									$html .= '</div>';
+									$html .= '<hr>';
+									$html .= '<footer>';
+									$html .= '<span class="wpct-plugin-author">';
+									$html .= '<i class="dashicons dashicons-admin-users"></i>';	
+									$html .= '<a href="'.esc_url($author_profile).'" rel="bookmark">Chetan Vaghela</a>';	
+									$html .= '</span>';
+									$html .= '<span class="wpct-download-link">';
+									$html .= '<i class="dashicons dashicons-download"></i>';
+									$html .= '<a href="'.esc_url($download_link).'" rel="bookmark" target="_blank">Download</a>';
+									$html .= '</span>';
+									$html .= '<span class="wpct-active-installs">';
+									$html .= '<i class="dashicons dashicons-chart-area"></i>';
+									$html .= 'Total downloads:'.esc_attr($downloaded).'';
+									$html .= '</span>';
+									$html .= '<span class="tested-with">';
+									$html .= '<i class="dashicons dashicons-wordpress-alt"></i>';
+									$html .= 'Plugin Version '.esc_attr($version).'</span>';
+									$html .= '</footer>';
+									$html .= '</article>';
+		  						}
+		  					}
+		  					else
+		  					{
+		  						$html .= '<article class="">';
+				       			$html .= '<div class="entry">';
+								$html .= '<header class="entry-header">';
+								$html .= '<h3 class="entry-title">No Plugins found!</h3>';		
+								$html .= '</header>';
+				       			$html .= '</div>';
+				       			$html .= '</article>';
+		  					}
+		  				}
+		  			}
+		  		}
+		  		else
+		  		{
+	       			$html .= '<article class="plugin-card plugin type-plugin status-publish '.esc_attr($slug).'">';
+	       			$html .= '<div class="entry">';
+					$html .= '<header class="entry-header">';
+					$html .= '<h3 class="entry-title">Something went wrong!</h3>';		
+					$html .= '</header>';
+	       			$html .= '</div>';
+	       			$html .= '</article>';
+		  		}
+		  		$expiration = DAY_IN_SECONDS;
+		  		set_transient( $transient, esc_attr($html), $expiration );
+		  	}
+	  	}
+	  	wp_send_json(array('success'=> $success, 'html'=> html_entity_decode($html) ));
+
 	}
 }

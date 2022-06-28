@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Common Tools for Site
  * Description:       The plugin provides common functionality to the site.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Chetan Vaghela
  * Author URI:        https://github.com/thechetanvaghela
  * License:           GPL-2.0+
